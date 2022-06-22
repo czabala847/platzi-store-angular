@@ -1,1 +1,9 @@
 <p>basic-form works!</p>
+
+<p>{{ nameField.value }}</p>
+<input type="text" [formControl]="nameField" />
+<code>
+  <pre>
+    {{ nameField | json }}
+  </pre>
+</code>
