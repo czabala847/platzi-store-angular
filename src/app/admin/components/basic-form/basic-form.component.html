@@ -1,47 +1,69 @@
-<p>basic-form works!</p>
-
-<div>
-  <p>Name: {{ nameField.value }}</p>
-  <div class="message" [class.active]="isNameFieldValid">
-    <p>
-      <strong *ngIf="nameField.touched && nameField.hasError('required')">
-        Este campo es requerido
-      </strong>
-    </p>
-    <p>
-      <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">
-        Debe tener maximo 10 caracteres
-      </strong>
-    </p>
+<form action="" [formGroup]="form" (ngSubmit)="handleSubmit($event)">
+  <p>basic-form works!</p>
+  <div>
+    <p>Name: {{ nameField.value }}</p>
+    <div class="message" [class.active]="isNameFieldValid">
+      <p>
+        <strong *ngIf="nameField.touched && nameField.hasError('required')">
+          Este campo es requerido
+        </strong>
+      </p>
+      <p>
+        <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">
+          Debe tener maximo 10 caracteres
+        </strong>
+      </p>
+    </div>
+    <input
+      [ngClass]="{
+        'is-valid': isNameFieldValid,
+        'is-invalid': isNameFieldInValid
+      }"
+      type="text"
+      formControlName="name"
+    />
+    <button [disabled]="nameField.invalid">Validar</button>
   </div>
-  <input
-    [ngClass]="{
-      'is-valid': isNameFieldValid,
-      'is-invalid': isNameFieldInValid
-    }"
-    type="text"
-    [formControl]="nameField"
-  />
-  <button [disabled]="nameField.invalid">Validar</button>
-</div>
 
-<p>Email: {{ emailField.value }}</p>
-<input type="email" [formControl]="emailField" />
+  <p>Email: {{ emailField.value }}</p>
+  <input type="email" formControlName="email" />
 
-<p>Phone: {{ phoneField.value }}</p>
-<input type="tel" [formControl]="phoneField" />
+  <div>
+    <p>Phone: {{ phoneField.value }}</p>
+    <div
+      class="message"
+      [class.active]="phoneField.touched && phoneField.valid"
+    >
+      <p>
+        <strong *ngIf="phoneField.touched && phoneField.hasError('required')">
+          Este campo es requerido
+        </strong>
+      </p>
+    </div>
+    <input
+      [ngClass]="{
+        'is-valid': phoneField.touched && phoneField.valid,
+        'is-invalid': phoneField.touched && phoneField.invalid
+      }"
+      type="tel"
+      formControlName="phone"
+    />
+  </div>
 
-<p>Color: {{ colorField.value }}</p>
-<input type="color" [formControl]="colorField" />
+  <p>Color: {{ colorField.value }}</p>
+  <input type="color" formControlName="color" />
 
-<p>Date: {{ dateField.value }}</p>
-<input type="date" [formControl]="dateField" />
+  <p>Date: {{ dateField.value }}</p>
+  <input type="date" formControlName="date" />
 
-<p>Number: {{ numberField.value }}</p>
-<input type="number" [formControl]="numberField" />
+  <p>Number: {{ numberField.value }}</p>
+  <input type="number" formControlName="number" />
 
-<p>Range: {{ rangeField.value }}</p>
-<input type="range" [formControl]="rangeField" />
+  <p>Range: {{ rangeField.value }}</p>
+  <input type="range" formControlName="range" />
 
-<p>Range: {{ urlField.value }}</p>
-<input type="url" [formControl]="urlField" />
+  <p>Range: {{ urlField.value }}</p>
+  <input type="url" formControlName="url" />
+
+  <input type="submit" value="Enviar" />
+</form>
