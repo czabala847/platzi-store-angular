@@ -1,9 +1,47 @@
 <p>basic-form works!</p>
 
-<p>{{ nameField.value }}</p>
-<input type="text" [formControl]="nameField" />
-<code>
-  <pre>
-    {{ nameField | json }}
-  </pre>
-</code>
+<div>
+  <p>Name: {{ nameField.value }}</p>
+  <div class="message" [class.active]="isNameFieldValid">
+    <p>
+      <strong *ngIf="nameField.touched && nameField.hasError('required')">
+        Este campo es requerido
+      </strong>
+    </p>
+    <p>
+      <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">
+        Debe tener maximo 10 caracteres
+      </strong>
+    </p>
+  </div>
+  <input
+    [ngClass]="{
+      'is-valid': isNameFieldValid,
+      'is-invalid': isNameFieldInValid
+    }"
+    type="text"
+    [formControl]="nameField"
+  />
+  <button [disabled]="nameField.invalid">Validar</button>
+</div>
+
+<p>Email: {{ emailField.value }}</p>
+<input type="email" [formControl]="emailField" />
+
+<p>Phone: {{ phoneField.value }}</p>
+<input type="tel" [formControl]="phoneField" />
+
+<p>Color: {{ colorField.value }}</p>
+<input type="color" [formControl]="colorField" />
+
+<p>Date: {{ dateField.value }}</p>
+<input type="date" [formControl]="dateField" />
+
+<p>Number: {{ numberField.value }}</p>
+<input type="number" [formControl]="numberField" />
+
+<p>Range: {{ rangeField.value }}</p>
+<input type="range" [formControl]="rangeField" />
+
+<p>Range: {{ urlField.value }}</p>
+<input type="url" [formControl]="urlField" />
