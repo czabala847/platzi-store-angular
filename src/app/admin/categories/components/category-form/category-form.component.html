@@ -17,6 +17,9 @@
             <mat-error *ngIf="nameField.hasError('required')">
               Este campo es requerido
             </mat-error>
+            <mat-error *ngIf="nameField.hasError('not_available')">
+              Ya existe una categoría con ese nombre
+            </mat-error>
           </mat-form-field>
         </div>
       </div>

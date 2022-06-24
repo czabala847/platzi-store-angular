@@ -7,6 +7,10 @@ import {
   CategoryUpdateDTO,
 } from '../models/category.models';
 
+interface Availability {
+  isAvailable: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -25,6 +29,15 @@ export class CategoriesService {
     return this.http.put<Category>(
       `${environment.url_api}/categories/${id}`,
       dto
+    );
+  }
+
+  checkCategory(name: string) {
+    return this.http.post<Availability>(
+      `${environment.url_api}/categories/availability`,
+      {
+        name,
+      }
     );
   }
 }
