@@ -21,6 +21,10 @@ export class CategoriesService {
     return this.http.get<Category[]>(`${environment.url_api}/categories`);
   }
 
+  get(id: string) {
+    return this.http.get<Category>(`${environment.url_api}/categories/${id}`);
+  }
+
   create(dto: CategoryCreateDTO) {
     return this.http.post<Category>(`${environment.url_api}/categories`, dto);
   }

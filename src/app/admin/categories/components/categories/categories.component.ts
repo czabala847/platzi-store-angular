@@ -9,7 +9,7 @@ import { CategoriesService } from 'src/app/core/services/categories.service';
 })
 export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
-  displayedColumns: string[] = ['id', 'name', 'image'];
+  displayedColumns: string[] = ['id', 'name', 'image', 'options'];
 
   constructor(private categoriesService: CategoriesService) {}
 

@@ -17,3 +17,9 @@ table {
 .Category__img {
   width: 100px;
 }
+
+.Category__options {
+  & :nth-child(1) {
+    margin-right: 1rem;
+  }
+}
