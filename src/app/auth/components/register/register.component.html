@@ -6,32 +6,69 @@
     <mat-card-content>
       <div class="row">
         <div class="col-xs">
+          <p>{{ emailField.value }}</p>
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input placeholder="email" formControlName="email" matInput type="email">
+            <input
+              placeholder="email"
+              formControlName="email"
+              matInput
+              type="email"
+            />
+            <mat-error *ngIf="emailField.hasError('required')"
+              >Este campo es requerido</mat-error
+            >
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-xs">
+          <p>{{ passwordField.value }}</p>
           <mat-form-field>
             <mat-label>Password</mat-label>
-            <input placeholder="password" formControlName="password" matInput type="password">
+            <input
+              placeholder="password"
+              formControlName="password"
+              matInput
+              type="password"
+            />
+            <mat-error *ngIf="passwordField.hasError('required')"
+              >Este campo es requerido</mat-error
+            >
+            <mat-error *ngIf="passwordField.hasError('minlength')"
+              >Debé tener minimo 6 caracteres</mat-error
+            >
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-xs">
+          <p>{{ confPasswordField.value }}</p>
           <mat-form-field>
             <mat-label>Confirm Password</mat-label>
-            <input placeholder="password" formControlName="password" matInput type="password">
+            <input
+              placeholder="password"
+              formControlName="confPassword"
+              matInput
+              type="password"
+            />
+            <mat-error *ngIf="confPasswordField.hasError('required')"
+              >Este campo es requerido</mat-error
+            >
           </mat-form-field>
+          <span *ngIf="confPasswordField.touched && form.errors">
+            <mat-error *ngIf="form.hasError('match_password')"
+              >Las contraseñas no coinciden</mat-error
+            >
+          </span>
+          <p>Do password match? {{ !form.hasError("match_password") }}</p>
         </div>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button [disabled]="form.invalid" mat-raised-button type="submit">Registro</button>
+      <button [disabled]="form.invalid" mat-raised-button type="submit">
+        Registro
+      </button>
     </mat-card-actions>
   </mat-card>
-
 </form>
