@@ -16,6 +16,7 @@ import { MyValidators } from 'src/app/utils/validators';
 })
 export class RegisterComponent implements OnInit {
   form: UntypedFormGroup;
+  showcompanyName: boolean = true;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -43,11 +44,25 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confPassword: ['', [Validators.required]],
+        type: ['company', [Validators.required]],
+        companyName: ['', [Validators.required]],
       },
       {
         validators: MyValidators.matchPassword,
       }
     );
+
+    this.typeField.valueChanges.subscribe((value) => {
+      if (value === 'company') {
+        this.companyNameField.setValidators([Validators.required]);
+        this.showcompanyName = true;
+      } else {
+        this.companyNameField.setValidators(null);
+        this.showcompanyName = false;
+      }
+
+      this.companyNameField.updateValueAndValidity();
+    });
   }
 
   get emailField() {
@@ -60,5 +75,13 @@ export class RegisterComponent implements OnInit {
 
   get confPasswordField() {
     return this.form.get('confPassword');
+  }
+
+  get typeField() {
+    return this.form.get('type');
+  }
+
+  get companyNameField() {
+    return this.form.get('companyName');
   }
 }

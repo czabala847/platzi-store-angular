@@ -6,7 +6,6 @@
     <mat-card-content>
       <div class="row">
         <div class="col-xs">
-          <p>{{ emailField.value }}</p>
           <mat-form-field>
             <mat-label>Email</mat-label>
             <input
@@ -23,7 +22,6 @@
       </div>
       <div class="row">
         <div class="col-xs">
-          <p>{{ passwordField.value }}</p>
           <mat-form-field>
             <mat-label>Password</mat-label>
             <input
@@ -43,7 +41,6 @@
       </div>
       <div class="row">
         <div class="col-xs">
-          <p>{{ confPasswordField.value }}</p>
           <mat-form-field>
             <mat-label>Confirm Password</mat-label>
             <input
@@ -61,7 +58,33 @@
               >Las contraseñas no coinciden</mat-error
             >
           </span>
-          <p>Do password match? {{ !form.hasError("match_password") }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-radio-group formControlName="type">
+            <mat-radio-button value="company">Company</mat-radio-button>
+            <mat-radio-button value="customer">Customer</mat-radio-button>
+            <mat-error *ngIf="typeField.hasError('required')"
+              >Este campo es requerido</mat-error
+            >
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="row" *ngIf="showcompanyName">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Company name</mat-label>
+            <input
+              placeholder="company"
+              formControlName="companyName"
+              matInput
+              type="text"
+            />
+            <mat-error *ngIf="companyNameField.hasError('required')"
+              >Este campo es requerido</mat-error
+            >
+          </mat-form-field>
         </div>
       </div>
     </mat-card-content>
