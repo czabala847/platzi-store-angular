@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Product } from 'src/app/core/models/product.model';
 
 import { ProductsService } from 'src/app/core/services/products/products.service';
+import { CategoriesService } from 'src/app/core/services/categories.service';
+import { Category } from 'src/app/core/models/category.models';
 
 @Component({
   selector: 'app-product-smart',
@@ -12,11 +14,13 @@ import { ProductsService } from 'src/app/core/services/products/products.service
 export class ProductSmartComponent implements OnInit {
   productId: string | null = null;
   product: Product | null = null;
+  categories: Category[] = [];
 
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private categoriesService: CategoriesService
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +31,8 @@ export class ProductSmartComponent implements OnInit {
         this.getProduct(this.productId);
       }
     });
+
+    this.getAllCategories();
   }
 
   handleCreate(dto) {
@@ -39,6 +45,12 @@ export class ProductSmartComponent implements OnInit {
   getProduct(id: string) {
     this.productsService.getProduct(id).subscribe((product) => {
       this.product = product;
+    });
+  }
+
+  getAllCategories() {
+    this.categoriesService.getAll().subscribe((categories) => {
+      this.categories = categories;
     });
   }
 }

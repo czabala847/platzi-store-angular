@@ -9,6 +9,7 @@ import {
   Product,
   ProductUpdateDTO,
 } from 'src/app/core/models/product.model';
+import { Category } from 'src/app/core/models/category.models';
 
 @Component({
   selector: 'app-product-form',
@@ -18,15 +19,20 @@ import {
 export class ProductFormComponent implements OnInit {
   form: FormGroup;
   isNew = true;
+  categoriesData: Category[] = [];
 
   @Output() create = new EventEmitter<ProductCreateDTO>();
   @Output() update = new EventEmitter<ProductUpdateDTO>();
+
   @Input() set product(product: Product) {
     if (product) {
-      console.log();
       this.isNew = false;
       this.form.patchValue(product);
     }
+  }
+
+  @Input() set categories(categories: Category[]) {
+    this.categoriesData = categories;
   }
 
   constructor(
