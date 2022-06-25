@@ -76,7 +76,7 @@ export class CategoryFormComponent implements OnInit {
         finalize(() => {
           const urlImage$ = ref.getDownloadURL();
           urlImage$.subscribe((url) => {
-            console.log(url);
+            // console.log(url);
             this.imageField.setValue(url);
           });
         })

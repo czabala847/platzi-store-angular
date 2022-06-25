@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Product } from './../../models/product.model';
+import {
+  Product,
+  ProductCreateDTO,
+  ProductUpdateDTO,
+} from './../../models/product.model';
 
 import { environment } from './../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
-
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   getAllProducts() {
     return this.http.get<Product[]>(`${environment.url_api}/products`);
@@ -22,11 +23,11 @@ export class ProductsService {
     return this.http.get<Product>(`${environment.url_api}/products/${id}`);
   }
 
-  createProduct(product: Product) {
-    return this.http.post(`${environment.url_api}/products`, product);
+  createProduct(product: ProductCreateDTO) {
+    return this.http.post<Product>(`${environment.url_api}/products`, product);
   }
 
-  updateProduct(id: string, changes: Partial<Product>) {
+  updateProduct(id: string, changes: ProductUpdateDTO) {
     return this.http.put(`${environment.url_api}/products/${id}`, changes);
   }
 

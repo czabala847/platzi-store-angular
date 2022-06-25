@@ -5,3 +5,7 @@ export interface Product {
   description: string;
   image: string;
 }
+
+export interface ProductCreateDTO extends Omit<Product, '_id'> {}
+
+export interface ProductUpdateDTO extends Partial<ProductCreateDTO> {}

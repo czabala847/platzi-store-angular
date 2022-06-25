@@ -4,25 +4,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductsComponent } from './components/products/products.component';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
-
+import { ProductSmartComponent } from './container/product-smart/product-smart.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProductsComponent
+    component: ProductsComponent,
   },
   {
     path: 'create',
-    component: ProductCreateComponent
+    component: ProductSmartComponent,
   },
   {
     path: 'edit/:id',
-    component: ProductEditComponent
+    component: ProductSmartComponent,
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ProductsRoutingModule { }
+export class ProductsRoutingModule {}
