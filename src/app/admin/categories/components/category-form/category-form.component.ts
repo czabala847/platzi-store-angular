@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 
 import {
   Category,
+  CategoryCreateDTO,
   CategoryUpdateDTO,
 } from 'src/app/core/models/category.models';
 import { CategoriesService } from 'src/app/core/services/categories.service';
@@ -18,36 +18,26 @@ import { MyValidators } from 'src/app/utils/validators';
 })
 export class CategoryFormComponent implements OnInit {
   form: FormGroup;
-  categoryId: string;
+  isNew = true;
+
+  @Input() set category(data: Category | null) {
+    if (data) {
+      this.isNew = false;
+      this.form.patchValue(data);
+    }
+  }
+  @Output() create = new EventEmitter<CategoryCreateDTO>();
+  @Output() update = new EventEmitter<CategoryUpdateDTO>();
 
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
-    private router: Router,
-    private storage: AngularFireStorage,
-    private route: ActivatedRoute
+    private storage: AngularFireStorage
   ) {
     this.buildForm();
   }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params: Params) => {
-      this.categoryId = params.get('id');
-    });
-
-    if (this.categoryId) {
-      this.getCategory();
-      // this.nameField.setAsyncValidators(null);
-      // console.log('Eliminar validacion async');
-    } else {
-      // console.log('Colocar validacion async');
-      // this.nameField.setAsyncValidators(
-      //   MyValidators.validateCategory(this.categoriesService)
-      // );
-    }
-
-    // this.nameField.updateValueAndValidity();
-  }
+  ngOnInit(): void {}
 
   private buildForm() {
     this.form = this.formBuilder.group({
@@ -62,36 +52,14 @@ export class CategoryFormComponent implements OnInit {
 
   save() {
     if (this.form.valid) {
-      if (!this.categoryId) {
-        this.createCategory();
+      if (this.isNew) {
+        this.create.emit(this.form.value);
       } else {
-        this.updateCategory();
+        this.update.emit(this.form.value);
       }
     } else {
       this.form.markAllAsTouched();
     }
-  }
-
-  private updateCategory() {
-    const dto: CategoryUpdateDTO = this.form.value;
-    this.categoriesService
-      .update(this.categoryId, dto)
-      .subscribe((response) => {
-        this.router.navigate(['./admin/categories']);
-      });
-  }
-
-  private createCategory() {
-    const dto: Category = this.form.value;
-    this.categoriesService.create(dto).subscribe((response) => {
-      this.router.navigate(['./admin/categories']);
-    });
-  }
-
-  private getCategory() {
-    this.categoriesService.get(this.categoryId).subscribe((category) => {
-      this.form.patchValue(category);
-    });
   }
 
   handleUpload(event) {

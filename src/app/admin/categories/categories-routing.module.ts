@@ -2,26 +2,25 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CategoriesComponent } from './components/categories/categories.component';
-import { CategoryFormComponent } from './components/category-form/category-form.component';
-
+import { CategoriesSmartComponent } from './containers/categories-smart/categories-smart.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CategoriesComponent
+    component: CategoriesComponent,
   },
   {
     path: 'create',
-    component: CategoryFormComponent
+    component: CategoriesSmartComponent,
   },
   {
     path: 'edit/:id',
-    component: CategoryFormComponent
-  }
+    component: CategoriesSmartComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CategoriesRoutingModule { }
+export class CategoriesRoutingModule {}
