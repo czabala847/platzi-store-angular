@@ -51,6 +51,7 @@ export class ProductFormComponent implements OnInit {
       category_id: ['', [Validators.required]],
       image: ['', Validators.required],
       description: ['', [Validators.required, Validators.min(10)]],
+      stock: [10, Validators.required],
     });
   }
 
